@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-import { usePostDataMutation } from "@/redux/api/queryApi";
 import useLogout from "./useLogout";
-import { useAppDispatch } from "@/redux/hook";
-import { regenrate } from "@/redux/services/keySlice";
+import { usePostDataMutation } from "@/redux/api/queryApi";
 
 const useMutate = (params) => {
   const { callback, navigateBack = true, disableAlert = false } = params;
@@ -12,7 +10,6 @@ const useMutate = (params) => {
   const logout = useLogout();
   const navigate = useNavigate();
   const [mutate, { isLoading }] = usePostDataMutation();
-  const dispatch = useAppDispatch();
 
   const onSubmit = async (url, values = undefined, method = "POST") => {
     const { data, error } = await mutate({
@@ -21,7 +18,7 @@ const useMutate = (params) => {
       body: values ?? {},
     });
 
-    if (error) {
+    if (error || data?.success === false) {
       if (error?.status === 401) {
         toast.error("အကောင့်အသုံးပြုခွင့်မရှိပါ");
 
@@ -33,19 +30,17 @@ const useMutate = (params) => {
 
     if (data?.message) {
       if (!disableAlert) toast.success(data?.message);
-
-      if (method === "DELETE") {
-        dispatch(regenrate());
-      }
     }
 
     if (data && callback) {
-      return callback(data);
+      return callback(data?.data);
     }
 
     if (navigateBack && method !== "DELETE") {
       return navigate(-1);
     }
+
+    return data;
   };
 
   return [onSubmit, { isLoading }];

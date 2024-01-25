@@ -5,7 +5,9 @@ import { useEffect, useState, useCallback } from "react";
 import { useGetDataQuery } from "@/redux/api/queryApi";
 import useLogout from "./useLogout";
 
-const useQuery = (url, callback, kill = false) => {
+const useQuery = (params) => {
+  const { url, callback, kill = false } = params;
+
   if (kill) return { isLoading: false };
   const logout = useLogout();
   const [isLoading, setIsLoading] = useState(false);
