@@ -6,7 +6,6 @@ const FacebookAuthButton = ({ setToken }) => {
 
   const onSuccessHandler = (res) => {
     if (res) {
-      console.log(res);
       return onSubmit("/auth/facebook", {
         access_token: res?.accessToken,
       });
