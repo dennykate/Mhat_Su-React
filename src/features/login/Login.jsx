@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { GoogleAuthButton } from "./components";
+import { FacebookAuthButton, GoogleAuthButton } from "./components";
 
 const Login = () => {
   const [token, setToken] = useState("");
@@ -16,6 +16,7 @@ const Login = () => {
         className="w-[500px]"
       />
       <GoogleAuthButton setToken={setToken} />
+      <FacebookAuthButton setToken={setToken} />
     </div>
   );
 };

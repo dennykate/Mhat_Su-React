@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useLogout from "./useLogout";
 import { usePostDataMutation } from "@/redux/api/queryApi";
 
-const useMutate = (params) => {
+const useMutate = (params = {}) => {
   const { callback, navigateBack = true, disableAlert = false } = params;
 
   const logout = useLogout();
@@ -12,6 +12,7 @@ const useMutate = (params) => {
   const [mutate, { isLoading }] = usePostDataMutation();
 
   const onSubmit = async (url, values = undefined, method = "POST") => {
+    console.log("body", values);
     const { data, error } = await mutate({
       url,
       method,
