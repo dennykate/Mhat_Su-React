@@ -27,7 +27,7 @@ const useLocalstorage = () => {
       const value = localStorage.getItem(key);
       const expirationTimestamp = localStorage.getItem(`${key}_expiration`);
 
-      if (!value) return "Invalid key";
+      if (!value) return undefined;
 
       // Check expiration
       if (
@@ -48,7 +48,11 @@ const useLocalstorage = () => {
     [secretKey]
   );
 
-  return { set, get };
+  const remove = useCallback((key) => {
+    localStorage.removeItem(key);
+  }, []);
+
+  return { set, get, remove };
 };
 
 export default useLocalstorage;

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +14,11 @@ const useMutate = (params = {}) => {
     disableCheckToken = false,
   } = params;
 
-  useInterceptor(disableCheckToken);
+  const interceptor = useInterceptor();
+
+  useEffect(() => {
+    if (!disableCheckToken) interceptor();
+  }, []);
 
   const logout = useLogout();
   const navigate = useNavigate();

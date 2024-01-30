@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
   const navigate = useNavigate();
-  const { set } = useLocalstorage();
+  const { set, remove } = useLocalstorage();
 
-  return useCallback((data) => {
+  const login = useCallback((data) => {
     const payload = jwtDecode(data.access_token);
 
     set("access_token", data.access_token);
@@ -17,6 +17,16 @@ const useAuth = () => {
 
     navigate("/mama");
   }, []);
+
+  const logout = useCallback(() => {
+    remove("access_token");
+    remove("refresh_token");
+    remove("profile");
+
+    navigate("");
+  }, []);
+
+  return { login, logout };
 };
 
 export default useAuth;

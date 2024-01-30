@@ -1,28 +1,29 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
+import dayjs from "dayjs";
+
 import useLocalstorage from "./useLocalstorage";
 import useAuth from "./useAuth";
 import config from "@/config";
+import { useNavigate } from "react-router-dom";
 
-const useInterceptor = (isDisable) => {
+const useInterceptor = () => {
+  const navigate = useNavigate();
   const { get } = useLocalstorage();
-  const auth = useAuth();
+  const { login, logout } = useAuth();
 
-  const checkAccessToken = useCallback(() => {
-    if (isDisable) return;
-
+  return useCallback(async () => {
     const access_token = get("access_token");
     const refresh_token = get("refresh_token");
 
+    if (!access_token) return navigate("/");
+
     const payload = jwtDecode(access_token);
 
-    const currentTime = new Date().getTime();
+    const isExpired = dayjs.unix(payload.exp).diff(dayjs()) < 1;
 
-    console.log(currentTime > payload.exp);
-
-    if (currentTime > payload.exp) {
-      console.log(refresh_token);
-      fetch(config.baseUrl + "/auth/refresh-token", {
+    if (isExpired) {
+      const res = await fetch(config.baseUrl + "/auth/refresh-token", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -30,15 +31,16 @@ const useInterceptor = (isDisable) => {
         body: JSON.stringify({
           refresh_token: refresh_token,
         }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-        });
+      });
+      const data = await res.json();
+
+      if (data?.success) {
+        login(data.data);
+      } else {
+        logout();
+      }
     }
   }, []);
-
-  useEffect(() => checkAccessToken(), [checkAccessToken]);
 };
 
 export default useInterceptor;
