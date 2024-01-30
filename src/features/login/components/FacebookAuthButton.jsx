@@ -1,8 +1,17 @@
+import useAuth from "@/hooks/useAuth";
 import useMutate from "@/hooks/useMuate";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
 const FacebookAuthButton = ({ setToken }) => {
-  const [onSubmit] = useMutate({ callback: (data) => setToken(data?.access_token) });
+  const { login } = useAuth();
+
+  const [onSubmit] = useMutate({
+    callback: (data) => {
+      setToken(data?.access_token);
+      login(data);
+    },
+    disableCheckToken: true,
+  });
 
   const onSuccessHandler = (res) => {
     if (res) {
