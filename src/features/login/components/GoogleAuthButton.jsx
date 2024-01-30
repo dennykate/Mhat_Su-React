@@ -1,13 +1,17 @@
+import useAuth from "@/hooks/useAuth";
 import useMutate from "@/hooks/useMuate";
 import { useGoogleLogin } from "@react-oauth/google";
 
 const GoogleAuthButton = ({ setToken }) => {
+  const auth = useAuth();
+
   const [onSubmit] = useMutate({
     navigateBack: false,
     callback: (data) => {
-      console.log("data", data);
-      setToken(data?.token);
+      setToken(data?.access_token);
+      auth(data);
     },
+    disableCheckToken: true
   });
 
   const login = useGoogleLogin({

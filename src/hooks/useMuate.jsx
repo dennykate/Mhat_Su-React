@@ -3,9 +3,17 @@ import { useNavigate } from "react-router-dom";
 
 import useLogout from "./useLogout";
 import { usePostDataMutation } from "@/redux/api/queryApi";
+import useInterceptor from "./useInterceptor";
 
 const useMutate = (params = {}) => {
-  const { callback, navigateBack = true, disableAlert = false } = params;
+  const {
+    callback,
+    navigateBack = true,
+    disableAlert = false,
+    disableCheckToken = false,
+  } = params;
+
+  useInterceptor(disableCheckToken);
 
   const logout = useLogout();
   const navigate = useNavigate();
