@@ -6,7 +6,7 @@ const GoogleAuthButton = ({ setToken }) => {
     navigateBack: false,
     callback: (data) => {
       console.log("data", data);
-      setToken(data?.token);
+      setToken(data?.access_token);
     },
   });
 
