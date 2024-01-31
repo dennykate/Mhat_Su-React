@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
@@ -5,10 +6,10 @@ import dayjs from "dayjs";
 import useLocalstorage from "./useLocalstorage";
 import useAuth from "./useAuth";
 import config from "@/config";
-import { useNavigate } from "react-router-dom";
 
-const useInterceptor = () => {
+const useRefreshToken = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { get } = useLocalstorage();
   const { login, logout } = useAuth();
 
@@ -16,11 +17,16 @@ const useInterceptor = () => {
     const access_token = get("access_token");
     const refresh_token = get("refresh_token");
 
-    if (!access_token) return navigate("/");
+    if (!access_token) {
+      logout();
+      return navigate("/login");
+    }
 
     const payload = jwtDecode(access_token);
 
     const isExpired = dayjs.unix(payload.exp).diff(dayjs()) < 1;
+
+    console.log(isExpired);
 
     if (isExpired) {
       const res = await fetch(config.baseUrl + "/auth/refresh-token", {
@@ -40,7 +46,7 @@ const useInterceptor = () => {
         logout();
       }
     }
-  }, []);
+  }, [pathname]);
 };
 
-export default useInterceptor;
+export default useRefreshToken;

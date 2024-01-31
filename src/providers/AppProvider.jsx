@@ -4,13 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { store } from "@/redux/store";
+import RefreshTokenProvider from "./RefreshTokenProvider";
 
 const AppProvider = ({ children }) => {
   return (
     <BrowserRouter>
       <Provider store={store}>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-          {children}
+          <RefreshTokenProvider>{children}</RefreshTokenProvider>
         </GoogleOAuthProvider>
       </Provider>
     </BrowserRouter>
