@@ -23,6 +23,7 @@ const useAuth = () => {
     remove("refresh_token");
     remove("profile");
 
+    console.log("navigate to login page");
     navigate("");
   }, []);
 

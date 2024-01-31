@@ -6,18 +6,20 @@ import useLocalstorage from "./useLocalstorage";
 const useToken = () => {
   const { get } = useLocalstorage();
 
-  const access_token = get("access_token");
-  const refresh_token = get("refresh_token");
+  return () => {
+    const access_token = get("access_token");
+    const refresh_token = get("refresh_token");
 
-  if (!access_token) {
-    return { forceStop: true };
-  }
+    if (!access_token) {
+      return { forceStop: true };
+    }
 
-  const payload = jwtDecode(access_token);
+    const payload = jwtDecode(access_token);
 
-  const isExpired = dayjs.unix(payload.exp).diff(dayjs()) < 1;
+    const isExpired = dayjs.unix(payload.exp).diff(dayjs()) < 1;
 
-  return { isExpired, access_token, refresh_token };
+    return { isExpired, access_token, refresh_token, forceStop: false };
+  };
 };
 
 export default useToken;
