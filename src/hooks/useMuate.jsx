@@ -1,14 +1,14 @@
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-import useLogout from "./useLogout";
 import { usePostDataMutation } from "@/redux/api/queryApi";
+import useAuth from "./useAuth";
 
 const useMutate = (params = {}) => {
   const { callback, navigateBack = true, disableAlert = false } = params;
 
-  const logout = useLogout();
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [mutate, { isLoading }] = usePostDataMutation();
 
   const onSubmit = async (url, values = undefined, method = "POST") => {
