@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 
-import useLocalstorage from "./useLocalstorage";
 import { useNavigate } from "react-router-dom";
+import { useCryptStorage } from "use-crypt-storage";
 
 const useAuth = () => {
   const navigate = useNavigate();
-  const { set, remove } = useLocalstorage();
+  const { set, remove } = useCryptStorage();
 
   const login = useCallback((data) => {
     const payload = jwtDecode(data.access_token);
