@@ -15,7 +15,7 @@ const useAuth = () => {
     set("refresh_token", data.refresh_token);
     set("profile", JSON.stringify(payload.profile));
 
-    navigate("/mama");
+    navigate("/dashboard");
   }, []);
 
   const logout = useCallback(() => {
@@ -23,8 +23,7 @@ const useAuth = () => {
     remove("refresh_token");
     remove("profile");
 
-    console.log("navigate to login page");
-    navigate("");
+    navigate("/");
   }, []);
 
   return { login, logout };

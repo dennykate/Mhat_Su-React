@@ -11,7 +11,6 @@ const GoogleAuthButton = ({ setToken }) => {
       setToken(data?.access_token);
       login(data);
     },
-    disableCheckToken: true,
   });
 
   const googleLogin = useGoogleLogin({

@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Icon } from "@iconify/react";
 
 import { FacebookAuthButton, GoogleAuthButton } from "./components";
 
-const Login = () => {
+const Main = () => {
   const [token, setToken] = useState("");
 
   return (
@@ -18,9 +17,8 @@ const Login = () => {
       />
       <GoogleAuthButton setToken={setToken} />
       <FacebookAuthButton setToken={setToken} />
-      <Icon icon="mdi-light:home" />
     </div>
   );
 };
 
-export default Login;
+export default Main;

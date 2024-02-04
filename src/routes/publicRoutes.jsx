@@ -3,20 +3,20 @@ import { Navigate } from "react-router-dom";
 
 import { Wrapper } from "@/components";
 
-const Login = lazy(() => import("@/features/login/Login"));
+const Main = lazy(() => import("@/features/main/Main"));
 
 const publicRoutes = [
   {
-    path: "/login",
+    path: "/",
     element: (
       <Wrapper>
-        <Login />
+        <Main />
       </Wrapper>
     ),
   },
   {
     path: "*",
-    element: <Navigate to={"/login"} />,
+    element: <Navigate to={"/"} />,
   },
 ];
 

@@ -1,10 +1,15 @@
 import { useRoutes } from "react-router-dom";
+import useToken from "@/hooks/useToken";
 
 import privateRoutes from "./privateRoutes";
 import publicRoutes from "./publicRoutes";
 
 const Routes = () => {
-  const isAuth = false;
+  const generate = useToken();
+
+  const { isExpired, forceStop } = generate();
+
+  const isAuth = !isExpired | !forceStop;
 
   const routes = isAuth ? privateRoutes : publicRoutes;
 

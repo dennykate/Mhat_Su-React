@@ -10,7 +10,6 @@ const FacebookAuthButton = ({ setToken }) => {
       setToken(data?.access_token);
       login(data);
     },
-    disableCheckToken: true,
   });
 
   const onSuccessHandler = (res) => {
