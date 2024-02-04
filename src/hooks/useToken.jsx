@@ -11,8 +11,10 @@ const useToken = () => {
       const access_token = get("access_token");
       const refresh_token = get("refresh_token");
 
+      console.log("access_token", access_token);
+
       if (!access_token) {
-        return { forceStop: true };
+        return { forceStop: true, isExpired: true };
       }
 
       const payload = jwtDecode(access_token);

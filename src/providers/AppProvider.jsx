@@ -6,7 +6,6 @@ import { MantineProvider } from "@mantine/core";
 import { CryptProvider } from "use-crypt-storage";
 
 import { store } from "@/redux/store";
-import RefreshTokenProvider from "./RefreshTokenProvider";
 
 const AppProvider = ({ children }) => {
   return (
@@ -15,7 +14,7 @@ const AppProvider = ({ children }) => {
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
           <MantineProvider>
             <CryptProvider secretKey={import.meta.env.VITE_SECRET_KEY}>
-              <RefreshTokenProvider>{children}</RefreshTokenProvider>
+              {children}
             </CryptProvider>
           </MantineProvider>
         </GoogleOAuthProvider>

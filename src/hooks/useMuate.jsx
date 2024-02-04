@@ -12,7 +12,6 @@ const useMutate = (params = {}) => {
   const [mutate, { isLoading }] = usePostDataMutation();
 
   const onSubmit = async (url, values = undefined, method = "POST") => {
-    console.log("body", values);
     const { data, error } = await mutate({
       url,
       method,
