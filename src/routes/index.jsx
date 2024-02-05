@@ -1,6 +1,6 @@
 import { useRoutes } from "react-router-dom";
-import useToken from "@/hooks/useToken";
 
+import { useToken } from "@/hooks";
 import privateRoutes from "./privateRoutes";
 import publicRoutes from "./publicRoutes";
 
