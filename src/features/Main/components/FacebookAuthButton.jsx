@@ -1,13 +1,12 @@
-import useAuth from "@/hooks/useAuth";
-import useMutate from "@/hooks/useMuate";
+import { useAuth, useMutate } from "@/hooks";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
-const FacebookAuthButton = ({ setToken }) => {
+const FacebookAuthButton = () => {
   const { login } = useAuth();
 
   const [onSubmit] = useMutate({
+    navigateBack: false,
     callback: (data) => {
-      setToken(data?.access_token);
       login(data);
     },
   });

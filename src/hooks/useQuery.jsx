@@ -3,13 +3,13 @@ import toast from "react-hot-toast";
 import { useEffect, useState, useCallback } from "react";
 
 import { useGetDataQuery } from "@/redux/api/queryApi";
-import useLogout from "./useLogout";
+import { useAuth } from ".";
 
 const useQuery = (params = {}) => {
   const { url, callback, kill = false } = params;
 
   if (kill) return { isLoading: false };
-  const logout = useLogout();
+  const { logout } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const { data, error } = useGetDataQuery(url);
