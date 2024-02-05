@@ -1,11 +1,20 @@
-import { FacebookAuthButton, GoogleAuthButton } from "./components";
+import { Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { AuthForm } from "./components";
 
 const Main = () => {
+  const [opened, { open, close }] = useDisclosure();
+
   return (
-    <div className="flex justify-center items-center w-full h-screen gap-4 flex-col overflow-hidden">
-      <GoogleAuthButton />
-      <FacebookAuthButton />
-    </div>
+    <>
+      <div className="h-screen flex justify-center items-center">
+        <button onClick={open}>Login</button>
+      </div>
+
+      <Modal opened={opened} onClose={close} centered withCloseButton={false}>
+        <AuthForm />
+      </Modal>
+    </>
   );
 };
 
