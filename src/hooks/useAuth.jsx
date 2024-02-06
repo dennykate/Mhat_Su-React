@@ -2,11 +2,11 @@ import { useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 
 import { useNavigate } from "react-router-dom";
-import { useCryptStorage } from "use-crypt-storage";
+import { useEncryptStorage } from "use-encrypt-storage";
 
 const useAuth = () => {
   const navigate = useNavigate();
-  const { set, remove } = useCryptStorage();
+  const { set, remove } = useEncryptStorage();
 
   const login = useCallback((data) => {
     const payload = jwtDecode(data.access_token);

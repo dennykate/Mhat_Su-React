@@ -1,9 +1,19 @@
+import { EncryptStorage } from "use-encrypt-storage";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import config from "@/config";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: config.baseUrl, // Your API base URL
+  prepareHeaders: (headers) => {
+    const encryptStorage = new EncryptStorage(import.meta.env.VITE_SECRET_KEY);
+
+    const access_token = encryptStorage.get("access_token") || "";
+
+    headers.set("Authorization", `Bearer ${access_token}`);
+
+    return headers;
+  },
 });
 
 export const queryApi = createApi({

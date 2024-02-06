@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-import { usePostDataMutation } from "@/redux/api/queryApi";
+import { usePostDataMutation } from "@/services/api/queryApi";
 import useAuth from "./useAuth";
 
 const useMutate = (params = {}) => {

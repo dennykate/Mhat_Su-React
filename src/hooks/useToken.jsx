@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 
-import { useCryptStorage } from "use-crypt-storage";
+import { useEncryptStorage } from "use-encrypt-storage";
 
 const useToken = () => {
-  const { get } = useCryptStorage();
+  const { get } = useEncryptStorage();
 
   return () => {
     try {

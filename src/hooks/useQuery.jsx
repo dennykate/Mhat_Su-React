@@ -2,7 +2,7 @@
 import toast from "react-hot-toast";
 import { useEffect, useState, useCallback } from "react";
 
-import { useGetDataQuery } from "@/redux/api/queryApi";
+import { useGetDataQuery } from "@/services/api/queryApi";
 import { useAuth } from ".";
 
 const useQuery = (params = {}) => {
