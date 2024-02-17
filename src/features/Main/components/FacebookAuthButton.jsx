@@ -27,7 +27,12 @@ const FacebookAuthButton = () => {
         console.log("Login Failed!", error);
       }}
       render={({ onClick }) => (
-        <button onClick={onClick}>Facebook Login</button>
+        <button
+          onClick={onClick}
+          className="" // style with tailwind css here
+        >
+          Facebook Login
+        </button>
       )}
     />
   );
