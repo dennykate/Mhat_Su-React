@@ -19,7 +19,14 @@ const GoogleAuthButton = () => {
     },
   });
 
-  return <button onClick={googleLogin}>Google Login</button>;
+  return (
+    <button
+      onClick={googleLogin}
+      className="" // style with tailwind css here
+    >
+      Google Login
+    </button>
+  );
 };
 
 export default GoogleAuthButton;
