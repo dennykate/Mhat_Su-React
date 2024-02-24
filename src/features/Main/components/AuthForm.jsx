@@ -1,5 +1,6 @@
 
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 const AuthForm = () => {
   return (
@@ -34,13 +35,13 @@ const AuthForm = () => {
 
         <p className="pt-6 pb-5 pl-5 text-[13.5px] ">
           By continuing with Google or Facebook, you agree to MhatSu&apos;s{" "}
-          <a href="" className="text-blue-600 ">
+          <Link to="" className="text-blue-600 ">
             Terms and Service
-          </a>{" "}
+          </Link>{" "}
           and{" "}
-          <a href="" className="text-blue-600">
+          <Link to="" className="text-blue-600">
             Privacy Policy.
-          </a>
+          </Link>
         </p>
       </div>
     </section>
